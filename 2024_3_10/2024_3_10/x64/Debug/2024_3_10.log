@@ -1,10 +1,4 @@
 ﻿  game.c
-E:\Code\video\2024_3_10\2024_3_10\game.c(70,1): warning C4142: "IsNum": 类型的良性重定义
-  E:\Code\video\2024_3_10\2024_3_10\game.h(28,6):
-  参见“IsNum”的声明
-  
-E:\Code\video\2024_3_10\2024_3_10\game.c(69,40): warning C4028: 形参 2 与声明不同
-E:\Code\video\2024_3_10\2024_3_10\game.c(70,1): warning C4029: 声明的形参表不同于定义
-E:\Code\video\2024_3_10\2024_3_10\game.c(154,1): warning C4029: 声明的形参表不同于定义
-E:\Code\video\2024_3_10\2024_3_10\game.c(217): warning C4715: “IsWin”: 不是所有的控件路径都返回值
+  test.c
+  正在生成代码...
   2024_3_10.vcxproj -> E:\Code\video\2024_3_10\x64\Debug\2024_3_10.exe

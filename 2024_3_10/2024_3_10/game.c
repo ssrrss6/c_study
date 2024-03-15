@@ -28,18 +28,18 @@ void InitBoard(char Board[ROWS][COLS], int rows, int cols, int ret)
 void Display(char show[ROWS][COLS], int row, int col)
 {
 	printf("-------扫雷-------\n");
-	printf("  ");
+	printf("   ");
 	for (int i = 1; i <= row; i++)
 	{
-		printf("%d ", i);
+		printf("%2d ", i);
 	}
 	printf("\n");
 	for (int i = 1; i <= row; i++)
 	{
-		printf("%d ", i);
+		printf("%2d ", i);
 		for (int j = 1; j <= col; j++)
 		{		
-			printf("%c ", show[i][j]);
+			printf(" %c ", show[i][j]);
 		}
 		printf("\n");
 	}
@@ -66,12 +66,11 @@ void Getmine(char mine[ROWS][COLS], int row, int col)
 }
 
 //判断周围地雷数
-void IsNum(char mine[ROWS][COLS], char show[ROWS][COLS], int x, int y, int fx_count)
+void IsNum(char mine[ROWS][COLS], char show[ROWS][COLS], int x, int y)
 {
 	int i = 0;
 	int j = 0;
 	int count = 0;
-	fx_count++;
 
 	for (i = -1; i <= 1; i++)
 	{
@@ -89,64 +88,12 @@ void IsNum(char mine[ROWS][COLS], char show[ROWS][COLS], int x, int y, int fx_co
 			{
 				show[x][y] = ' ';
 				if(mine[x + i][y + j] != '1' && show[x + i][y + j] == '*' && x + i >= 1 && y + j >= 1 && x + i <= ROW && y + j <= COL)
-					IsNum(mine, show, x + i, y + j, fx_count);
+					IsNum(mine, show, x + i, y + j);
 			}
 			else
-			{
 				show[x][y] = count + '0';
-				//if(mine[x + i][y + j] != '1' && show[x + i][y + j] == '*' && x + i > 1 && y + j > 1 && x + i < ROW && y + j < COL)
-				//	IsNum(mine, show, x + i, y + j, fx_count);
-			}
 		}
 	}
-
-	/*for (i = -1; i <= 1; i++)
-	{
-		for (j = -1; j <= 1; j++)
-		{
-			if (show[x + i][y + j] == '*' && count == 0)
-			{
-				show[x + i][y + j] = ' ';
-				if (x > 1 && y > 1 && x < ROW && y < COL)
-					IsNum(mine, show, x + i, y + j, fx_count);
-			}
-			else
-			{
-				show[x][y] = count + '0';
-			}
-		}
-	}*/
-		
-
-	/*if (count == 0 && mine[x][y] != '1')
-	{
-		show[x][y] = ' ';
-		for (int i = -1; i + x <= ROW; i++)
-		{
-			for (int j = -1; j + y <= COL; j++)
-			{
-				if (x > 1 && y > 1 && show[x + i][y + j] != ' ' && mine[x][y] == '0')
-				{
-					IsNum(mine, show, x + i, y + j, fx_count);
-				}
-			}
-		}
-	}
-	if(mine[x][y] != '1')
-		show[x][y] = count + '0';*/
-
-		/*for (int i = 0 - fx_count; i <= 0 + fx_count && i <= ROW - x && i >= -x && x > 0 && x < ROW; i++)
-		{
-			for (int j = 0 - fx_count; j <= 0 + fx_count && j <= COL - y && j >= -y && y > 0 && y < COL; j++)
-			{
-				if (mine[x + i][y + j] == '0' && show[x + i][y + j] != ' ')
-				{
-					IsNum(mine, show, x + i, y + j, fx_count);
-				}
-				else
-					show[x + i][y + j] = count + '0';
-			}
-	}*/
 }
 
 //标棋
@@ -214,6 +161,8 @@ IsWin(char mine[ROWS][COLS],char show[ROWS][COLS], int x, int y, int row, int co
 		return 'l';
 	else if (count == WIN || flag - error == WIN)
 		return 'w';
+	else
+		return '\0';
 }
 
 //游戏过程与判断输赢
@@ -224,15 +173,14 @@ void Play(char show[ROWS][COLS], char mine[ROWS][COLS], int row, int col)
 	int count = 0;
 	char a = 0;
 	char iswin = '\0';
-	int fx_count = 0;
 
 	while (1)
 	{
-		Display(mine, ROW, COL);
 		clean();
 		printf("输入‘0’标记或按回车排雷\n");
 		printf("请选择:>");
 		scanf("%c", &a);
+
 		if (a == '0')
 		{
 			//标棋
@@ -248,7 +196,7 @@ void Play(char show[ROWS][COLS], char mine[ROWS][COLS], int row, int col)
 				{
 					if (show[x][y] == '*' || show[x][y] == '!')
 					{
-						IsNum(mine, show, x, y, fx_count);
+						IsNum(mine, show, x, y);
 						Display(show, ROW, COL);
 						break;
 					}
