@@ -1,0 +1,3 @@
+﻿  test.c
+E:\Code\video\2024_4_7\2024_4_7\test.c(130,2): warning C4013: “system”未定义；假设外部返回 int
+  2024_4_7.vcxproj -> E:\Code\video\2024_4_7\x64\Debug\2024_4_7.exe
