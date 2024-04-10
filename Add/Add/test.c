@@ -174,20 +174,152 @@
 
 //20 + 10 + 5 + 2--1 + 1 + 1
 // 22 + 11 + 5 -- 1 + 2 -- 1 + 1 + 1
+//int main()
+//{
+//	int water = 7;
+//	int sum = 0;
+//	int tmp = 0;
+//
+//	while (water)
+//	{
+//		sum += water;
+//		tmp += water % 2;
+//		water /= 2;
+//	}
+//
+//	printf("%d", sum + tmp / 2);
+//
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	/*int sum = 0;
+//	int n = 0;
+//	scanf("%d", &n);
+//
+//	for (int i = 1; i <= n; i++)
+//	{
+//		sum += i * i;
+//	}
+//	printf("%d", sum);*/
+//	
+//	/*int sum = 0;
+//	int n = 0;
+//	int ret = 1;
+//	scanf("%d", &n);
+//
+//	for (int i = 1; i <= n; i++)
+//	{
+//		for (int j = 1; j <= i; j++)
+//		{
+//			ret *= j;
+//		}
+//		sum += ret;
+//		ret = 1;
+//	}
+//	printf("%d", sum);*/
+//
+//	/*double sum = 0;
+//	int mom = 2;
+//	int son = 1;
+//
+//	int i = 0;
+//	for (i = 1; i <= 10; i++)
+//	{
+//		sum += mom / son;
+//		mom *= 2;
+//		son += 2;
+//	}
+//	printf("%lf\n", sum);
+//	printf("%d\n", mom);
+//	printf("%d\n", son);*/
+//
+//	/*double sum = 0;
+//
+//	int k = 0;
+//	for (k = 1; k <= 20; k++)
+//	{
+//		sum += k * k * k;
+//	}
+//	for (k = 1; k <= 10; k++)
+//	{
+//		sum += 1 / (k * k);
+//	}
+//	printf("%lf\n", sum);*/
+//
+//
+//	/*int x = 0;
+//	int y = 0;
+//	scanf("%d %d", &x, &y);
+//	int ret = 1;
+//	
+//	int i = 0;
+//	for (i = 0; i < y; i++)
+//	{
+//		ret *= x;
+//	}
+//	
+//	if (y == 0)
+//		ret = 1;
+//	
+//	printf("%d", ret);*/
+//
+//
+//	/*1、	编写一个程序, 求出cosx的值。
+//		cosx = 1 - x2 / 2!+ x4 / 4!- x6 / 6!+ ……..直到最后一项绝对值小于1e - 7为止*
+//
+//
+//
+//	return 0;
+//}
+
+#include<math.h>
 int main()
 {
-	int water = 7;
-	int sum = 0;
-	int tmp = 0;
+	/*1、	编写一个程序, 求出cosx的值。
+		cosx = 1 - x^2 / 2!+ x^4 / 4!- x^6 / 6!+ ……..直到最后一项绝对值小于1e - 7为止*/
 
-	while (water)
+	/*double x = 0.0;
+	scanf("%lf", &x);
+	double sum = 1;
+	double y = x * x;
+	double ret = 1;
+	int i = 2;
+	int n = 1;
+	int sign = -1;
+
+	while (fabs(sum) >= 1e-7)
 	{
-		sum += water;
-		tmp += water % 2;
-		water /= 2;
+		int num = 1;
+		for (int j = 1; j <= i; j++)
+		{
+			num *= j;
+		}
+		ret = sign * (ret * y / (num / n));
+		i+= 2;
+		n = num;
+		sum += ret;
+	}
+	printf("%lf\n", sum);*/
+
+	double x = 0;
+	scanf("%lf", &x);
+	double sum = 1;
+	double term = 1;
+	int i = 2;
+	int sign = -1;
+
+	while (fabs(term) >= 1e-7) 
+	{
+		term *= x * x / (i * (i - 1));
+		sum += sign * term;
+		sign = -sign;
+		i += 2;
 	}
 
-	printf("%d", sum + tmp / 2);
+	printf("cos(%lf) ≈ %lf\n", x, sum);
 
 	return 0;
 }
