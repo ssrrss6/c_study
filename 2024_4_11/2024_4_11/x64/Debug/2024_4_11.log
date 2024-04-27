@@ -1,0 +1,4 @@
+﻿  test.c
+E:\Code\video\2024_4_11\2024_4_11\test.c(84,2): warning C4013: “gets”未定义；假设外部返回 int
+E:\Code\video\2024_4_11\2024_4_11\test.c(85,10): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  2024_4_11.vcxproj -> E:\Code\video\2024_4_11\x64\Debug\2024_4_11.exe
