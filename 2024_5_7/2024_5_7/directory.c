@@ -1,15 +1,79 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "directory.h"
 
+
+void readbook(directory* p)
+{
+	assert(p);
+
+	FILE* pf = fopen("directory.txt", "rb");
+	if (pf == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		return;
+	}
+
+	peoinfo tmp = { 0 };
+
+	while ((fread(&tmp, sizeof(peoinfo), 1, pf)) == 1)
+	{
+		enlarge(p);
+
+		p->number[p->count] = tmp;
+		p->count++;
+	}
+	
+	fclose(pf);
+	pf = NULL;
+}
+
 void init(directory* p)
 {
-	memset(p->number, 0, sizeof(p->number));
+	assert(p);
+
+	printf("成功创建通讯录\n");
+
 	p->count = 0;
+	p->number = (peoinfo*)calloc(CAPACITY_MAX, sizeof(peoinfo));
+	if (p->number == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		return;
+	}
+	p->capacity = CAPACITY_MAX;
+
+	readbook(p);
 }
+
+int enlarge(directory* p)
+{
+	assert(p);
+
+
+	if (p->capacity == p->count)
+	{
+		peoinfo* ptmp = (peoinfo*)realloc(p->number, sizeof(peoinfo) * (CAPACITY_MAX + ADD));
+		if (ptmp == NULL)
+		{
+			printf("%s\n", strerror(errno));
+			return 1;
+		}
+		else
+		{
+			p->number = ptmp;
+			p->capacity += ADD;
+		}
+	}
+	
+	return 0;
+}
+
 
 void add(directory* p)
 {
 	assert(p);
+
+	enlarge(p);
 
 	printf("添加联系人\n");
 	printf("姓名:>");
@@ -103,7 +167,6 @@ void search(directory* p)
 	{
 		printf("您要查找的联系人不存在\n");
 	}
-	
 }
 
 void modi(directory* p)
@@ -145,3 +208,39 @@ void sort(directory* p)
 	printf("排序成功\n");
 }
 
+void writebook(directory* p)
+{
+	assert(p);
+
+	FILE* pf = fopen("directory.txt", "wb");
+	if (pf == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		return;
+	}
+
+	//for (int i = 0; i < p->count; i++)
+	//{
+	//	int ret = fprintf(pf, "%s %d %s %s %s\n", p->number[i].name, p->number[i].age, p->number[i].sex, p->number[i].tel, p->number[i].addr);
+	//	if (ret < 0)
+	//	{
+	//		printf("%s\n", strerror(errno));
+	//	}
+	//}
+
+	for (int i = 0; i < p->count; i++)
+	{
+		fwrite(p->number + i, sizeof(peoinfo), 1, pf);
+	}
+	
+	fclose(pf);
+	pf = NULL;
+}
+
+void destroybook(directory* p)
+{
+	assert(p);
+
+	free(p->number);
+	p->number = NULL;
+}

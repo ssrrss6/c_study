@@ -13,6 +13,7 @@ void menu()
 
 int main()
 {
+	int ret = sizeof(peoinfo);
 	int input = 0;
 	directory book;
 	init(&book);
@@ -44,6 +45,8 @@ int main()
 			sort(&book);
 			break;
 		case 0:
+			writebook(&book);
+			destroybook(&book);
 			printf("ÍË³ö³ÌÐò\n");
 			break;
 		default:

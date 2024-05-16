@@ -324,13 +324,62 @@
 //	return 0;
 //}
 
+//#include<string.h>
+//int main()
+//{
+//	char arr[] = "hello";
+//	strcat(arr, arr);
+//
+//	printf("%s", arr);
+//
+//	return 0;
+//
+// 
+// }
+
+
+/*int main()
+{
+	int n = 0;
+	
+	while (scanf("%d", &n) == 1)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				if (i != 0 && i != n-1 && j != 0 && j != n-1)
+				{
+					printf("  ");
+				}
+				else
+				{
+					printf("* ");
+				}
+			}
+			printf("\n");
+		}
+	}
+
+	return 0;
+}*/
+
 #include<string.h>
+#include<errno.h>
 int main()
 {
-	char arr[] = "hello";
-	strcat(arr, arr);
+	FILE* pf = fopen("text.txt", "w");
 
-	printf("%s", arr);
+	if (pf == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		return 1;
+	}
+
+	fprintf(pf, "%s", "abcdef");
+
+	fclose(pf);
+	pf = NULL;
 
 	return 0;
 }
